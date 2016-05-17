@@ -7,7 +7,7 @@ var Action = (function () {
     //******************************************************************************
     //アクションファイルの追加
     //AddActionFile("C:\\TEST.atn" );
-    function AddActionFile(filepath) {
+    exports.AddActionFile = function (filepath) {
         try {
             var idOpn = charIDToTypeID("Opn ");
             var desc1 = new ActionDescriptor();
@@ -23,7 +23,7 @@ var Action = (function () {
 
     //******************************************************************************
     //アクションセットの削除
-    function DeleteActionSet(ActionSetName) {
+    exports.DeleteActionSet = function (ActionSetName) {
         try {
             var idDlt = charIDToTypeID("Dlt ");
             var desc1 = new ActionDescriptor();
@@ -42,7 +42,7 @@ var Action = (function () {
 
     //******************************************************************************
     //アクションファイルの削除
-    function DeleteAction(ActionSetName, ActionName) {
+    exports.DeleteAction = function (ActionSetName, ActionName) {
 
         try {
             var idDlt = charIDToTypeID("Dlt ");
@@ -62,25 +62,6 @@ var Action = (function () {
         }
     }
 
-
-    //******************************************************************************
-    //アクションの有無
-    //return bool
-    function ExistsAction(ActionSetName, ActionName) {
-
-        var AS = getActionSets();
-        for (var i = 0; i < AS.length; i++) {
-            if (ActionSetName == AS[i].name) {
-                for (var j = 0; j < AS[i].actions.length; j++) {
-                    if (ActionName == AS[i].actions[j])
-                        return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
     //******************************************************************************
     /*
     var AS = getActionSets() ;
@@ -99,7 +80,7 @@ var Action = (function () {
     */
     //アクションファイルの一覧取得
     //http://d.hatena.ne.jp/kamiseto/20100618/1276884205
-    function getActionList() {
+    exports.getActionList = function (){
 
         cTID = function (s) { return app.charIDToTypeID(s); };
 
@@ -146,6 +127,24 @@ var Action = (function () {
     };
 
 
+    //******************************************************************************
+    //アクションの有無
+    //return bool
+    exports.ExistsAction = function (ActionSetName, ActionName) {
+
+        var AS = exports.getActionList();
+        for (var i = 0; i < AS.length; i++) {
+            if (ActionSetName == AS[i].name) {
+                for (var j = 0; j < AS[i].actions.length; j++) {
+                    if (ActionName == AS[i].actions[j])
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
 
     return exports;
 
